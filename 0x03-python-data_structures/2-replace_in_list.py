@@ -4,12 +4,12 @@ def replace_in_list(my_list, idx, element):
     a function that replaces an element of a list
     at a specific point
 
-    parameters:
+    Parameters:
     my_list (list): list of element
     idx (int): index of list
     element (int): element to replace
 
-    return:
+    Return:
     original list if idx is negative or out of range
     '''
     if idx < 0:
