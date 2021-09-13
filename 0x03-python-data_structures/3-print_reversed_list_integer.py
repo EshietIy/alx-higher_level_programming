@@ -6,6 +6,6 @@ def print_reversed_list_integer(my_list=[]):
     Parameters:
     my_list (list): list parameter
     '''
-    for x in range(
-            -1, ((len(my_list) + 1) * -1), -1):
+    r = ((len(my_list) + 1) * -1)
+    for x in range(-1, r, -1):
         print(my_list[x])
