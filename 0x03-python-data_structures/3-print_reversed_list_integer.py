@@ -2,7 +2,7 @@
 def print_reversed_list_integer(my_list=[]):
     '''
     a function that prints all integers of a list in reverse
-    
+
     Parameters:
     my_list (list): list parameter
     '''
