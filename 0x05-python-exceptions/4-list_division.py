@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 def list_division(my_list_1, my_list_2, list_length):
-    ln1 = len(my_list_1)
-    ln2 = len(my_list_2)
+    x = 0
     new_list = []
-    for x in range(list_length):
+    while x < list_length:
         result = 0
         try:
             result = my_list_1[x] / my_list_2[x]
@@ -15,4 +14,5 @@ def list_division(my_list_1, my_list_2, list_length):
             print("out of range")
         finally:
             new_list.append(result)
+            x += 1
     return new_list
