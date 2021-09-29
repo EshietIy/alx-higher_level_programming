@@ -1,38 +1,52 @@
 #!/usr/bin/python3
-"""Define a class Square."""
+'''A module for working with squares.
+'''
 
 
 class Square:
-    """Represent a square."""
-
-    def __init__(self, size):
-        """Initialize a new square.
+    '''Represents a 2D Polygon with 4 equal and perpendicular sides.
+    '''
+    def __init__(self, size=0):
+        '''Initializes a Square with a given size.
         Args:
-            size (int): The size of the new square.
-        """
+            size (int): The size of the square.
+        '''
         self.size = size
 
-        @property
-        def size(self):
-            """Get/set the current size of the square."""
-            return (self.__size)
+    @property
+    def size(self):
+        '''Retrieves the size of this Square.
+        Returns:
+            int: The size of this Square.
+        '''
+        return self.__size
 
-        @size.setter
-        def size(self, value):
-            if not isinstance(value, int):
-                raise TypeError("size must be an integer")
-            elif value < 0:
-                raise ValueError("size must be >= 0")
-            self.__size = value
+    @size.setter
+    def size(self, value):
+        '''Updates the size of this Square.
+        Args:
+        value (int): The new size of this Square.
+        '''
+        if not isinstance(value, int):
+            raise TypeError('size must be an integer')
+        else:
+            if value < 0:
+                raise ValueError('size must be >= 0')
+            else:
+                self.__size = value
 
-        def area(self):
-            """Return the current area of the square."""
-            return (self.__size * self.__size)
+    def area(self):
+        '''Computes the area of this Square.
+        Returns:
+            int: The area of this Square.
+        '''
+        return self.size ** 2
 
-        def my_print(self):
-            """Print the square with the # character."""
-            for i in range(0, self.__size):
-                [print("#", end="") for j in range(self.__size)]
-                print("")
-            if self.__size == 0:
-                print("")
+    def my_print(self):
+        '''Prints a 2D table of the '#' symbol with the size of this square.
+        '''
+        if self.size == 0:
+            print('')
+        else:
+            for i in range(self.size):
+                print('{}'.format('#' * self.size))
