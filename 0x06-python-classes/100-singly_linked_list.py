@@ -79,8 +79,8 @@ class SinglyLinkedList:
                 while node_ptr is not None and value > node_ptr.data:
                     prev_ptr = node_ptr
                     node_ptr = node_ptr.next_node
-                    new_node = Node(value, node_ptr)
-                    prev_ptr.next_node = new_node
+                new_node = Node(value, node_ptr)
+                prev_ptr.next_node = new_node
 
     def __str__(self):
         '''Returns a string representation of this singly linked list.
@@ -92,4 +92,4 @@ class SinglyLinkedList:
         while node_ptr is not None:
             res.append(str(node_ptr.data))
             node_ptr = node_ptr.next_node
-            return '' if len(res) == 0 else '\n'.join(res)
+        return '' if len(res) == 0 else '\n'.join(res)
