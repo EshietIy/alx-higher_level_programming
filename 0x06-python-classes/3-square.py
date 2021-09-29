@@ -1,21 +1,21 @@
 #!/usr/bin/python3
-"""Define a class Square."""
+'''A module containing the Python class definition of a bytecode.'''
+import math
 
 
-class Square:
-    """Represent a square."""
-
-    def __init__(self, size=0):
-        """Initialize a new square.
-        Args:
-            size (int): The size of the new square.
-        """
-        if not isinstance(size, int):
-            raise TypeError("size must be an integer")
-        elif size < 0:
-            raise ValueError("size must be >= 0")
-        self.__size = size
+class MagicClass:
+    '''Represents an object for working with circles.'''
+    def __init__(self, radius=0):
+        '''Initializes this magic class.'''
+        self.__radius = 0
+        if type(radius) is not int and type(radius) is not float:
+            raise TypeError('radius must be a number')
+        self.__radius = radius
 
         def area(self):
-            """Return the current area of the square."""
-            return (self.__size * self.__size)
+            '''Computes the area of this circle.'''
+            return self.__radius ** 2 * math.pi
+
+        def circumference(self):
+            '''Computes the circumference of this circle.'''
+            return 2 * math.pi * self.__radius
