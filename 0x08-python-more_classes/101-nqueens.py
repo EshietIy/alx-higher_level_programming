@@ -1,123 +1,76 @@
 #!/usr/bin/python3
-""" defines a nqueens"""
+"""Solve the N queens problem"""
+
 
 import sys
 
 
-def init_board(n):
-    """Initialize an `n`x`n` sized chessboard with 0's."""
-    board = []
-    [board.append([]) for i in range(n)]
-    [row.append(' ') for i in range(n) for row in board]
-    return (board)
-
-
-def board_deepcopy(board):
-    """Return a deepcopy of a chessboard."""
-    if isinstance(board, list):
-        return list(map(board_deepcopy, board))
-    return (board)
-
-
-def get_solution(board):
-    """Return the list of lists representation of a solved chessboard."""
-    solution = []
-    for r in range(len(board)):
-        for c in range(len(board)):
-            if board[r][c] == "Q":
-                solution.append([r, c])
-                break
-    return (solution)
-
-
-def xout(board, row, col):
-    """X out spots on a chessboard.
-    All spots where non-attacking queens can no
-    longer be played are X-ed out.
+def checkQueen(queens, queen):
+    """Check if a queen is not attacking the others
     Args:
-        board (list): The current working chessboard.
-        row (int): The row where a queen was last played.
-        col (int): The column where a queen was last played.
-    """
-    # X out all forward spots
-    for c in range(col + 1, len(board)):
-        board[row][c] = "x"
-    # X out all backwards spots
-    for c in range(col - 1, -1, -1):
-        board[row][c] = "x"
-    # X out all spots below
-    for r in range(row + 1, len(board)):
-        board[r][col] = "x"
-    # X out all spots above
-    for r in range(row - 1, -1, -1):
-        board[r][col] = "x"
-    # X out all spots diagonally down to the right
-    c = col + 1
-    for r in range(row + 1, len(board)):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    # X out all spots diagonally up to the left
-    c = col - 1
-    for r in range(row - 1, -1, -1):
-        if c < 0:
-            break
-        board[r][c]
-        c -= 1
-    # X out all spots diagonally up to the right
-    c = col + 1
-    for r in range(row - 1, -1, -1):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    # X out all spots diagonally down to the left
-    c = col - 1
-    for r in range(row + 1, len(board)):
-        if c < 0:
-            break
-        board[r][c] = "x"
-        c -= 1
-
-
-def recursive_solve(board, row, queens, solutions):
-    """Recursively solve an N-queens puzzle.
-    Args:
-        board (list): The current working chessboard.
-        row (int): The current working row.
-        queens (int): The current number of placed queens.
-        solutions (list): A list of lists of solutions.
+        queens (list of tuple of int): queens placed so far
+        queen (tuple): queen to check
     Returns:
-        solutions
+        bool: True if queen can be placed there, False otherwise
     """
-    if queens == len(board):
-        solutions.append(get_solution(board))
-        return (solutions)
 
-    for c in range(len(board)):
-        if board[row][c] == " ":
-            tmp_board = board_deepcopy(board)
-            tmp_board[row][c] = "Q"
-            xout(tmp_board, row, c)
-            solutions = recursive_solve(tmp_board, row + 1,
-                                        queens + 1, solutions)
-
-    return (solutions)
+    for x, y in queens:
+        if y == queen[1]:
+            return False
+        if abs((y - queen[1]) / (x - queen[0])) == 1:
+            return False
+    return True
 
 
-if __name__ == "__main__":
+def placeQueen(n, queens, solutions):
+    """Try to place the next queen on the board
+    Args:
+        n (int): number of queens that need to be placed
+        queens (list of tuple of int): queens placed so far
+        solutions (list of list of list of int): queen positions that work
+    """
+
+    if len(queens) == n:
+        solutions.append([list(q) for q in queens])
+        return
+    x = len(queens)
+    for y in range(n):
+        queen = (x, y)
+        if checkQueen(queens, queen):
+            queens.append(queen)
+            placeQueen(n, queens, solutions)
+            queens.pop()
+
+
+def validate_args():
+    """Validate the N queens program's command-line arguments
+    Returns:
+        int: first command-line argument
+    """
+
     if len(sys.argv) != 2:
-        print("Usage: nqueens N")
+        print('Usage: nqueens N')
         sys.exit(1)
-    if sys.argv[1].isdigit() is False:
-        print("N must be a number")
+    try:
+        n = int(sys.argv[1])
+    except ValueError:
+        print('N must be a number')
         sys.exit(1)
-    if int(sys.argv[1]) < 4:
-        print("N must be at least 4")
+    if n < 4:
+        print('N must be at least 4')
         sys.exit(1)
+    return n
 
-    board = init_board(int(sys.argv[1]))
-    solutions = recursive_solve(board, 0, 0, [])
-    for sol in solutions:
-        print(sol)
+
+def main():
+    """Entry point to N queens program"""
+
+    n = validate_args()
+    queens = []
+    solutions = []
+    placeQueen(n, queens, solutions)
+    print('\n'.join(str(s) for s in solutions))
+
+    
+    if __name__ == '__main__':
+        main()
