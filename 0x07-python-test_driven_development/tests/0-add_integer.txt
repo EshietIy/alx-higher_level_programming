@@ -1,38 +1,36 @@
-The ``Add Integer`` module
-============================
+'''
+# Import the required function
+>>> from importlib import import_module
+>>> add_integer = import_module('0-add_integer').add_integer
 
-using ``and_integer``
------------------------
+# Valid arguments
+>>> add_integer(3, 4)
+7
+>>> add_integer(2)
+100
+>>> add_integer(1.2, 5.8)
+6
 
-First ``add_integer`` from the ``Add Integer`` module:
+# Invalid arguments
+>>> try:
+...     add_integer('3', 3)
+... except TypeError as ex:
+...     print(ex.args[0])
+a must be an integer
+>>> try:
+...     add_integer(('3'), 3)
+... except TypeError as ex:
+...     print(ex.args[0])
+a must be an integer
+>>> try:
+...     add_integer(3, None)
+... except TypeError as ex:
+...     print(ex.args[0])
+b must be an integer
+>>> try:
+...     add_integer(3, '4')
+... except TypeError as ex:
+...     print(ex.args[0])
+b must be an integer
 
-      >>> add_integer = __import__("0-add_integer").add_integer
-
-Now use it:
-    >>> add_integer(1, 1)
-    2
-
-    >>> add_integer(1, 0.5)
-    1
-
-    >>> add_integer(0.5, 1)
-    1
-
-    >>> add_integer(1.5, 0.5)
-    1
-
-    >>> add_integer('sring', 1)
-    Traceback (most recent call last):
-    ...
-    TypeError: a must be an integer
-
-    >>> add_integer(1, {1, 2, 3})
-    Traceback (most recent call last):
-    ...
-    TypeError: b must be an integer
-
-    >>> add_integer()
-    Traceback (most recent call last):
-    ...
-    TypeError: add_integer() missing 1 required positional argument: 'a'
-		
+'''
