@@ -13,30 +13,30 @@
  */
 void print_python_string(PyObject *p)
 {
-  Py_ssize_t str_len;
-  Py_UNICODE *str = NULL;
+Py_ssize_t str_len;
+Py_UNICODE *str = NULL;
 
-  fflush(stdout);
-  printf("[.] string object info\n");
-  fflush(stdout);
-  if ((p != NULL) && (p->ob_type != NULL)
-      && ((p->ob_type)->tp_name != NULL)
-      && (strcmp((p->ob_type)->tp_name, "str") == 0))
-    {
-      str = PyUnicode_AsWideCharString(p, &str_len);
-      printf("  type: %s%s\n",
-	     ((PyASCIIObject *)p)->state.compact ? "compact " : "",
-	     ((PyASCIIObject *)p)->state.ascii ? "ascii" : "unicode object");
-      fflush(stdout);
-      printf("  length: %d\n", (int)str_len);
-      fflush(stdout);
-      printf("  value: %ls\n", str);
-      fflush(stdout);
-      PyMem_Free(str);
-    }
-  else
-    {
-      printf("  [ERROR] Invalid String Object\n");
-      fflush(stdout);
-    }
+fflush(stdout);
+printf("[.] string object info\n");
+fflush(stdout);
+if ((p != NULL) && (p->ob_type != NULL)
+&& ((p->ob_type)->tp_name != NULL)
+&& (strcmp((p->ob_type)->tp_name, "str") == 0))
+{
+str = PyUnicode_AsWideCharString(p, &str_len);
+printf("  type: %s%s\n",
+((PyASCIIObject *)p)->state.compact ? "compact " : "",
+((PyASCIIObject *)p)->state.ascii ? "ascii" : "unicode object");
+fflush(stdout);
+printf("  length: %d\n", (int)str_len);
+fflush(stdout);
+printf("  value: %ls\n", str);
+fflush(stdout);
+PyMem_Free(str);
+}
+else
+{
+printf("  [ERROR] Invalid String Object\n");
+fflush(stdout);
+}
 }
