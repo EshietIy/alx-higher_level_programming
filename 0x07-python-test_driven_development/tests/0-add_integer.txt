@@ -1,0 +1,38 @@
+The ``Add Integer`` module
+============================
+
+using ``and_integer``
+-----------------------
+
+First ``add_integer`` from the ``Add Integer`` module:
+
+      >>> add_integer = __import__("0-add_integer").add_integer
+
+Now use it:
+    >>> add_integer(1, 1)
+    2
+
+    >>> add_integer(1, 0.5)
+    1
+
+    >>> add_integer(0.5, 1)
+    1
+
+    >>> add_integer(1.5, 0.5)
+    1
+
+    >>> add_integer('sring', 1)
+    Traceback (most recent call last):
+    ...
+    TypeError: a must be an integer
+
+    >>> add_integer(1, {1, 2, 3})
+    Traceback (most recent call last):
+    ...
+    TypeError: b must be an integer
+
+    >>> add_integer()
+    Traceback (most recent call last):
+    ...
+    TypeError: add_integer() missing 1 required positional argument: 'a'
+		
