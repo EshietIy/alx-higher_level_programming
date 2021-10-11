@@ -4,7 +4,7 @@ This module defines a class mylist
 '''
 
 
-class MyList(List):
+class MyList(list):
     '''custom list class that inherits from lists
 
     '''
