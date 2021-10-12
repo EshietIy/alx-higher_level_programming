@@ -12,6 +12,4 @@ def inherits_from(obj, a_class):
     Return:
     Returns True if it does inherit, False otherwise.
     '''
-    if isinstance(obj, a_class):
-        return False
     return issubclass(obj.__class__, a_class) and (type(obj) is not a_class)
