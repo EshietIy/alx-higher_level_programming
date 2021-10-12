@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-'''a module that define a function that 
+'''a module that define a function that
 prints to stdout
 '''
+
 
 def read_file(filename=""):
     '''a function that prints text file to stdout
@@ -11,9 +12,7 @@ def read_file(filename=""):
         None
     '''
     f_list = []
-    with open(filename) as f:
+    with open(filename, encoding='utf8') as f:
         f_list = f.readlines()
         for line in f_list:
             print(line)
-
-        
