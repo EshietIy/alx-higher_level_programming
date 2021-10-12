@@ -11,8 +11,6 @@ def read_file(filename=""):
     Return:
         None
     '''
-    f_list = []
     with open(filename, encoding='utf8') as f:
-        f_list = f.readlines()
-        for line in f_list:
-            print(line)
+       for line in f:
+            print(line, end='')
