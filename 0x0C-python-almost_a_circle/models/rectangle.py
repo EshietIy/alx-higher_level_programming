@@ -1,152 +1,149 @@
 #!/usr/bin/python3
-'''
-this module defines a rectangle object
-'''
-from models.base import Base
+"""Contains classes for working with Polygons.
+"""
+from .base import Base
 
 
 class Rectangle(Base):
+    """Represents a polygon with 4 perpendicular and
+    two pairs of equal sides.
     """
 
-    """
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Inizialization"""
-        self.verify_int(width, height, x, y)
+        """Initializes a new rectangle object.
+        Args:
+            width (int): The width of this rectangle.
+            height (int): The height of this rectangle.
+            x (int): The horizontal position of this rectangle.
+            y (int): The vertical position of this rectangle.
+            id (int): The id of this rectangle.
+        """
         super().__init__(id)
-        self.__width = width
-        self.__height = height
-        self.__x = x
-        self.__y = y
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
 
     @property
     def width(self):
-        """ returns the width value"""
+        """Gets or sets the width of this rectangle.
+        """
         return self.__width
-
-    @width.setter
-    def width(self, value):
-        """ set the width property"""
-        self.verify_int(width=value)
-        self.__width = value
 
     @property
     def height(self):
-        """ returns the height value"""
+        """Gets or sets the height of this rectangle.
+        """
         return self.__height
-
-    @height.setter
-    def height(self, value):
-        """ set the height property"""
-        self.verify_int(height=value)
-        self.__height = value
 
     @property
     def x(self):
-        """ returns the x value"""
+        """Gets or sets the horizontal position of this rectangle.
+        """
         return self.__x
-
-    @x.setter
-    def x(self, value):
-        """ set the x property"""
-        self.verify_int(x=value)
-        self.__x = value
 
     @property
     def y(self):
-        """ returns the y value"""
+        """Gets or sets the vertical position of this rectangle.
+        """
         return self.__y
+
+    @width.setter
+    def width(self, value):
+        """Gets or sets the width of this rectangle.
+        """
+        if type(value) is not int:
+            raise TypeError('width must be an integer')
+        if value <= 0:
+            raise ValueError('width must be > 0')
+        self.__width = value
+
+    @height.setter
+    def height(self, value):
+        """Gets or sets the height of this rectangle.
+        """
+        if type(value) is not int:
+            raise TypeError('height must be an integer')
+        if value <= 0:
+            raise ValueError('height must be > 0')
+        self.__height = value
+
+    @x.setter
+    def x(self, value):
+        """Gets or sets the horizontal position of this rectangle.
+        """
+        if type(value) is not int:
+            raise TypeError('x must be an integer')
+        if value < 0:
+            raise ValueError('x must be >= 0')
+        self.__x = value
 
     @y.setter
     def y(self, value):
-        """ set the y property"""
-        self.verify_int(y=value)
+        """Gets or sets the vertical position of this rectangle.
+        """
+        if type(value) is not int:
+            raise TypeError('y must be an integer')
+        if value < 0:
+            raise ValueError('y must be >= 0')
         self.__y = value
 
-    def verify_int(self, width=None, height=None, x=None, y=None):
-        """a function that verifies
-        if width and height are int
-        Args:
-           width: (int)
-           height: (int)
-           x: (int)
-           y: (int)
-        Return: None
-        """
-        w = ('width', width) if width is not None else None
-        h = ('height', height) if height is not None else None
-        X = ('x', x) if x is not None else None
-        Y = ('y', y) if y is not None else None
-
-        if w is not None:
-            if not type(w[1]) is int:
-                raise TypeError("{} must be an integer".format(w[0]))
-            if w[1] <= 0:
-                raise ValueError("{} must be > 0".format(w[0]))
-
-        if h is not None:
-            if not type(h[1]) is int:
-                raise TypeError("{} must be an integer".format(h[0]))
-            if h[1] <= 0:
-                raise ValueError("{} must be > 0".format(h[0]))
-
-        if X is not None:
-            if not type(X[1]) is int:
-                raise TypeError("{} must be an integer".format(X[0]))
-            if X[1] < 0:
-                raise ValueError("{} must be >= 0".format(X[0]))
-
-        if Y is not None:
-            if not type(Y[1]) is int:
-                raise TypeError("{} must be an integer".format(Y[0]))
-            if Y[1] < 0:
-                raise ValueError("{} must be >= 0".format(Y[0]))
-
     def area(self):
-        """a function that calculate area of
-        a rectangle
+        """Computes the area of this rectangle.
+        Returns:
+            int: The area of this rectangle.
         """
-        return self.height * self.width
+        return self.width * self.height
 
     def display(self):
-        """ this fuction prints the instance of
-        of the rectangle
+        """Prints a text representation of this rectangle.
         """
-        y = 0
-        while y < self.y:
-            print()
-            y += 1
-        for h in range(self.height):
-            x = 0
-            while x < self.x:
-                print(' ', end="")
-                x += 1
-            for w in range(self.width):
-                print("#", end='')
-            print()
+        h_off = ' ' * self.x
+        h_val = '#' * self.width
+        print('\n' * self.y, end='')
+        print('{:s}{:s}\n'.format(h_off, h_val) * self.height, end='')
 
     def __str__(self):
-        """str representaion of rectangle"""
-        return "[Rectangle] ({}) {}/{} - {}/{}".format(
-            self.id, self.x, self.y, self.width, self.height)
+        """Creates a string representation of this polygon.
+        Returns:
+            str: A string representation of this polygon.
+        """
+        parts = (
+            self.id,
+            self.x,
+            self.y,
+            self.width,
+            self.height
+        )
+        res = '[Rectangle] ({}) {:d}/{:d} - {:d}/{:d}'.format(
+            parts[0], parts[1], parts[2], parts[3], parts[4]
+        )
+        return res
 
     def update(self, *args, **kwargs):
-        """updats class variables using *args"""
-        atr = ['id', 'width', 'height', 'x', 'y']
-        i = 0
-        lof_args = len(args)
-
-        if lof_args > 0:
-            while i < lof_args:
-                setattr(self, atr[i], args[i])
-                i += 1
-        else:
-            for key, value in kwargs.items():
-                setattr(self, key, value)
+        """Updates the attributes of this polygon.
+        Args:
+            args (tuple): A tuple of non-keyword arguments.
+            kwargs (dict): A dictionary of keyword arguments.
+        """
+        attrs = ('id', 'width', 'height', 'x', 'y')
+        for key, val in zip(attrs, args):
+            setattr(self, key, val)
+        if (type(args) is None or len(args) == 0) and (type(kwargs) is dict):
+            for key, val in kwargs.items():
+                if key in attrs:
+                    setattr(self, key, val)
 
     def to_dictionary(self):
-        """ a function that gives adictinary
-        representation of a rectangle
+        """Creates a dictionary representation of this polygon.
+        Returns:
+            dict: A dictionary representation of this polygon.
         """
-        return {
-            'x': self.x, 'y': self.y, 'id': self.id,
-            'height': self.height, 'width': self.width}
+        res = {
+            'id': self.id,
+            'width': self.width,
+            'height': self.height,
+            'x': self.x,
+            'y': self.y
+        }
+        return res
