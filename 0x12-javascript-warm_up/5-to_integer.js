@@ -1,0 +1,8 @@
+#!/usr/bin/node
+let args = process.argv.slice(2);
+let num = parseInt(args[0]);
+if (num) {
+  console.log('My number: ' + num);
+} else {
+  console.log('Not a number');
+}
